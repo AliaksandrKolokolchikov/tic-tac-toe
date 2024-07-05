@@ -1,7 +1,15 @@
 import './App.css'
-import {useState} from "react";
+import { useState} from "react";
+import {Board} from "./components/Board.tsx";
+import {GameInfo} from "./components/GameInfo.tsx";
 
-function calculateWinner(squares) {
+interface SquaresProps  {
+    squares: number[];
+}
+
+
+
+function calculateWinner({squares}: SquaresProps)  {
     const lines = [
         [0,1,2],
         [3,4,5],
@@ -25,7 +33,7 @@ function App() {
     const [square, setSquare] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
 
-    const handleClick = (index) => {
+    const handleClick = (index)  => {
     const newSquare = square.slice();
 
     if(calculateWinner(newSquare) || newSquare[index]){
