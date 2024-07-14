@@ -1,10 +1,11 @@
 
 type SquareProps = {
-    value: number;
-    onClick?: () => void;
+    value: string | null;
+    onClick: () => void;
+
 }
 
-export const Square = ({value, onClick}:SquareProps) => {
+export const Square = ({ value, onClick } :SquareProps) => {
     return (
         <button className="square" onClick={onClick}>
             {value}

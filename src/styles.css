@@ -1,4 +1,4 @@
-.app {
+.App {
   text-align: center;
 }
 
@@ -9,6 +9,7 @@ h1 {
 
 .board {
   display: inline-block;
+  background-color: violet;
 }
 
 .board-row {

@@ -1,15 +1,16 @@
-import './App.css'
 import { useState} from "react";
 import {Board} from "./components/Board.tsx";
 import {GameInfo} from "./components/GameInfo.tsx";
 
-interface SquaresProps  {
-    squares: number[];
+export type SquareValue = 'X' | '0' | null
+
+export type SquaresProps = {
+    squares: SquareValue[];
 }
 
 
 
-function calculateWinner({squares}: SquaresProps)  {
+function calculateWinner({ squares }: SquaresProps) : SquareValue {
     const lines = [
         [0,1,2],
         [3,4,5],
@@ -22,7 +23,11 @@ function calculateWinner({squares}: SquaresProps)  {
     ]
     for (let i = 0; i < lines.length; i++) {
         const [a,b,c] = lines[i]
-        if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        if(
+            squares[a] &&
+            squares[a] === squares[b] &&
+            squares[a] === squares[c]
+        ) {
             return squares[a]
         }
     }
@@ -30,37 +35,37 @@ function calculateWinner({squares}: SquaresProps)  {
 }
 
 function App() {
-    const [square, setSquare] = useState(Array(9).fill(null));
-    const [xIsNext, setXIsNext] = useState(true);
+    const [square, setSquare] = useState<SquareValue[]>(Array(9).fill(null));
+    const [xIsNext, setXIsNext] = useState<boolean >(true);
 
-    const handleClick = (index)  => {
+    const handleClick = (index:number)  => {
     const newSquare = square.slice();
 
-    if(calculateWinner(newSquare) || newSquare[index]){
+    if(calculateWinner({squares:newSquare}) || newSquare[index]){
         return
     }
     newSquare[index] = xIsNext ? 'X' : '0'
+
         setSquare(newSquare);
-    setXIsNext(!xIsNext);
+        setXIsNext(!xIsNext);
     }
 
-    const winner = calculateWinner(square)
+    const winner = calculateWinner({squares:square});
     let status;
     if(winner){
-        status = "Winner" + winner
+        status = "Winner " + winner
     } else {
-        status = "Next player" + (xIsNext ? 'X' : '0')
+        status = "Next player " + (xIsNext ? 'X' : '0')
     }
 
     const resetGame = () =>{
-        // @ts-ignore
-        setXIsNext(Array(9).fill(null));
+        setSquare(Array(9).fill(null));
         setXIsNext(true)
     }
   return (
    <div className='App'>
        <h1>Tic-Tac-Toe</h1>
-        <Board squares={squares} onClick={handleClick} />
+        <Board squares={square} onClick={handleClick} />
        <GameInfo status={status} onReset={resetGame} />
    </div>
   )

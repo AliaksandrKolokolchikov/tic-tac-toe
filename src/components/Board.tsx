@@ -1,12 +1,13 @@
 import {Square} from "./Square.tsx";
+import {SquareValue} from "../App.tsx";
 
 type BoardProps = {
-    squares:number[]
-    onClick:(i:number) => void
+    onClick: (i: number) => void,
+    squares: SquareValue[]
 }
 
-export const Board = ({squares, onClick}:BoardProps) => {
-    const renderBoard = (i:number) => {
+export const Board = ({ squares, onClick }: BoardProps) => {
+    const renderBoard = (i: number) => {
         return (
             <Square value={squares[i]} onClick={() => onClick(i)}/>
         )

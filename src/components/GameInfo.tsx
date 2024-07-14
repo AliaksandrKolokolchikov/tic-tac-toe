@@ -8,7 +8,7 @@ export const GameInfo = ({status, onReset}:GameInfo) => {
     return (
         <div className="game-info">
             <div>{status}</div>
-            <button onClick={onReset}></button>
+            <button onClick={onReset}>Reset</button>
         </div>
     );
 };
